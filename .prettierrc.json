@@ -10,5 +10,5 @@
   "jsxBracketSameLine": false,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "embeddedLanguageFormatting": "auto" // >= v2.1.0 // 파일 안에 또다른 형식의 코드에도 Prettier를 적용할지 여부
+  "embeddedLanguageFormatting": "auto"
 }
