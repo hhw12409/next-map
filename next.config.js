@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
+
+const path = require('path');
+
 const nextConfig = {
-  reactStrictMode: true,
-    sassOptions: {
+  reactStrictMode: false,
+  sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-}
+  images: {
+    domains: ['lecture-1.vercel.app'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
