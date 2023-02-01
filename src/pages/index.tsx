@@ -4,35 +4,36 @@ import { VscFeedback } from 'react-icons/vsc';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import Link from 'next/link';
 import MapSection from '@/components/home/MapSection';
+import { Store } from '@/types/store';
+import { NextPage } from 'next';
+import useStores from '@/hooks/useStores';
+import { useEffect } from 'react';
+import HomeHeader from '@/components/home/HomeHeader';
 
-export default function Home() {
+interface Props {
+  stores: Store[];
+}
+
+const Home: NextPage<Props> = ({ stores }: Props) => {
+  const { initializeStores } = useStores();
+
+  useEffect(() => {
+    initializeStores(stores);
+  }, [initializeStores, stores]);
+
   return (
     <>
-      <Header
-        rightElements={[
-          <button
-            className={styles.box}
-            onClick={() => {
-              alert('복사');
-            }}
-            key="button"
-            style={{ marginRight: 8 }}
-          >
-            <AiOutlineShareAlt size={20} />
-          </button>,
-          <Link href="/feedback" className={styles.box} key="link">
-            <VscFeedback size={20} />
-          </Link>,
-        ]}
-      />
+      <HomeHeader />
       <main style={{ width: '100%', height: '100%' }}>
         <MapSection />
       </main>
     </>
   );
-}
+};
 
-export async function getStaticProps() {
+export default Home;
+
+export const getStaticProps = async () => {
   // TODO: next api routes로 불러오기
   const stores = (await import('../../public/stores.json')).default;
 
@@ -40,4 +41,4 @@ export async function getStaticProps() {
     props: { stores },
     revalidate: 60 * 60,
   };
-}
+};
