@@ -5,6 +5,7 @@ import DetailHeader from '@/components/home/DetailHeader';
 import DetailContent from '@/components/home/DetailContent';
 import { useRouter } from 'next/router';
 import useCurrentStore from '@/hooks/useCurrentStore';
+import Head from 'next/head';
 
 interface Props {
   store: Store;
@@ -15,6 +16,8 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
 
   const router = useRouter();
   const { setCurrentStore } = useCurrentStore();
+
+  console.log(store);
 
   const goToMap = () => {
     setCurrentStore(store);
@@ -27,6 +30,10 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
     <div
       className={`${styles.detailSection} ${styles.selected} ${styles.expanded}`}
     >
+      <Head>
+        <title>{store.name}</title>
+        <meta name="description" content={store.description} />
+      </Head>
       <DetailHeader
         currentStore={store}
         expanded={expanded}

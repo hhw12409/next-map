@@ -10,6 +10,7 @@ import useStores from '@/hooks/useStores';
 import { useEffect } from 'react';
 import HomeHeader from '@/components/home/HomeHeader';
 import DetailSection from '@/components/home/DetailSection';
+import { NextSeo } from 'next-seo';
 
 interface Props {
   stores: Store[];
@@ -24,6 +25,10 @@ const Home: NextPage<Props> = ({ stores }: Props) => {
 
   return (
     <>
+      <NextSeo
+        title="매장 지도"
+        description="Next.js를 이용한 매장 지도 서비스"
+      />
       <HomeHeader />
       <main
         style={{
