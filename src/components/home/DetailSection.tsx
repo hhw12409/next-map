@@ -1,15 +1,30 @@
+import { CURRENT_STORE_KEY } from '@/hooks/useCurrentStore';
 import styles from '@/styles/detail.module.scss';
-import { IoIosArrowUp } from 'react-icons/io';
+import { useState } from 'react';
+import useSWR from 'swr';
+import DetailContent from './DetailContent';
+import DetailHeader from './DetailHeader';
 
 const DetailSection = () => {
+  const { data: currentStore } = useSWR(CURRENT_STORE_KEY);
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandedClick = () => {
+    setExpanded((prev) => !prev);
+  };
+
   return (
-    <div className={styles.detailSection}>
-      <div className={styles.header}>
-        <button className={styles.arrowButton} disabled>
-          <IoIosArrowUp size={20} color="#666666" />
-        </button>
-        <p className={styles.title}>매장을 선택해주세요</p>
-      </div>
+    <div
+      className={`${styles.detailSection} ${currentStore && styles.selected} ${
+        expanded && styles.expanded
+      }`}
+    >
+      <DetailHeader
+        currentStore={currentStore}
+        expanded={expanded}
+        onClickArrow={handleExpandedClick}
+      />
+      <DetailContent currentStore={currentStore} expanded={expanded} />
     </div>
   );
 };
